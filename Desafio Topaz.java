@@ -63,7 +63,7 @@ void main(){
 	int server = 1; 
 	gravarNoArquivo("criado o Servidor " + server);
 	
-	qtdServer = 1; //porque sempre vai ter pelo menos 1 servidor ativo
+	qtdServer = 0; //porque só vai adicionar servidores depois que for adicionado os usuários
 	qtdHistórico = 0;
 
 	while(ler){
@@ -76,11 +76,12 @@ void main(){
 		}
 		servidoresAtivos = numUsuarios / umax; 
 
-		if(servidoresAtivos < 1) {
+		if(servidoresAtivos < 0) {
 			//para começar a adicionar servidores apenas quando ultrapassar da quantidade máxima.
 			qtdHistórico = qtdServer;
-			qtdServer = Math.ceil(servidoresAtivos) 
-			//arredonda pra cima depois de fazer a divisão da quantidade de usuários pela quantidade máxima de usuários por servidor.
+			if(numUsuarios % umax !=0)
+				qtdServer = Math.ceil(servidoresAtivos) 
+			//arredonda pra cima depois de fazer a divisão da quantidade de usuários pela quantidade máxima de usuários por servidor apenas se o número for decimal.
 			if (qtdServer > qtdHistórico)
 				gravarNoArquivo(qtdServer - qtdHistórico + " foram criados")
 			else
